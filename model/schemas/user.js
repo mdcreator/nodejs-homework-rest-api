@@ -3,6 +3,7 @@ const { Schema, model } = mongoose;
 import { Subscription } from "../../helpers/constants.js";
 import bcrypt from "bcryptjs";
 import gravatar from "gravatar";
+import { verify } from "jsonwebtoken";
 
 const SALT_WORK_FACTOR = 8;
 
@@ -34,8 +35,20 @@ const userSchema = new Schema(
         return gravatar.url(this.email, { s: "250" }, true);
       },
     },
-    token: String,
+    token: {
+      type: String,
+      default: null,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      requared: [true, "Verification token required"],
+    },
   },
+
   { versionKey: false, timestamps: true }
 );
 
