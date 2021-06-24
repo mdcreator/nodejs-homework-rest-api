@@ -29,4 +29,6 @@ router.patch(
   userController.avatars
 );
 
+router.get("/auth/verify/:verificationToken", userController.verifyToken);
+
 export default router;
